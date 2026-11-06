@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Job market analysis{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div><span class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> SKILLS &amp; OPPORTUNITY</span><h1>Job market analysis</h1><p>See which roles, skills, locations, and experience levels appear across the dataset.</p></div>
+      <a class="btn btn-light" href="{{ url_for('prediction') }}"><i class="bi bi-stars me-2"></i>Estimate your salary</a>
+    </div>
+  </div>
+</section>
+<section class="section-space-sm">
+  <div class="container">
+    <div class="data-source-note"><i class="bi bi-info-circle"></i><span>These charts summarize the supplied job posting records. Demand counts represent records that list the skill or role.</span></div>
+    <div class="analysis-insight-row row g-3 mb-4">
+      <div class="col-md-4"><div class="insight-card"><span class="insight-icon icon-blue"><i class="bi bi-trophy"></i></span><div><small>Most listed role</small><b id="leadingRole">Loading…</b></div></div></div>
+      <div class="col-md-4"><div class="insight-card"><span class="insight-icon icon-violet"><i class="bi bi-lightning-charge"></i></span><div><small>Most listed skill</small><b id="leadingSkill">Loading…</b></div></div></div>
+      <div class="col-md-4"><div class="insight-card"><span class="insight-icon icon-teal"><i class="bi bi-geo-alt"></i></span><div><small>Most listed country</small><b id="leadingCountry">Loading…</b></div></div></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6"><article class="chart-card"><div class="chart-heading"><div><h2>Most demanded job roles</h2><p>Number of job postings per role</p></div><span class="chart-badge">ROLES</span></div><div class="chart-wrap chart-tall"><canvas id="analysisRolesChart" aria-label="Job role demand chart"></canvas></div></article></div>
+      <div class="col-lg-6"><article class="chart-card"><div class="chart-heading"><div><h2>Top programming languages</h2><p>Python and SQL mentions in job postings</p></div><span class="chart-badge">LANGUAGES</span></div><div class="chart-wrap chart-tall"><canvas id="programmingLanguagesChart" aria-label="Programming language demand chart"></canvas></div></article></div>
+      <div class="col-lg-6"><article class="chart-card"><div class="chart-heading"><div><h2>Technical skills demand</h2><p>Number of postings listing each skill</p></div><span class="chart-badge">SKILLS</span></div><div class="chart-wrap chart-tall"><canvas id="analysisSkillsChart" aria-label="Skills demand chart"></canvas></div></article></div>
+      <div class="col-lg-7"><article class="chart-card"><div class="chart-heading"><div><h2>Job openings by country</h2><p>Sum of openings reported by postings</p></div><span class="chart-badge">OPPORTUNITY</span></div><div class="chart-wrap"><canvas id="opportunitiesChart" aria-label="Job opportunities by country chart"></canvas></div></article></div>
+      <div class="col-lg-5"><article class="chart-card"><div class="chart-heading"><div><h2>Experience-level distribution</h2><p>Share of records by experience level</p></div><span class="chart-badge">EXPERIENCE</span></div><div class="chart-wrap"><canvas id="experienceDistributionChart" aria-label="Experience level distribution chart"></canvas></div></article></div>
+      <div class="col-12"><article class="chart-card skills-table-card"><div class="chart-heading"><div><h2>Technical skills at a glance</h2><p>How often each skill appears in the source data</p></div><span class="chart-badge">DATA BREAKDOWN</span></div><div class="table-responsive"><table class="table analytics-table mb-0"><thead><tr><th>Technical skill</th><th>Postings</th><th>Share of dataset</th><th>Demand</th></tr></thead><tbody id="skillsTable"><tr><td colspan="4" class="text-center py-4">Loading dataset insights…</td></tr></tbody></table></div></article></div>
+    </div>
+    <div class="analytics-footnote"><i class="bi bi-info-circle"></i> Counts are calculated from dataset records, not external live job listings.</div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+{% endblock %}

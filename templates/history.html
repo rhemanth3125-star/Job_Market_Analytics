@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Prediction history{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div><span class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> YOUR SAVED ESTIMATES</span><h1>Prediction history</h1><p>Review and manage the salary estimates saved in your MongoDB database.</p></div>
+      <a class="btn btn-light" href="{{ url_for('prediction') }}"><i class="bi bi-plus-lg me-2"></i>New prediction</a>
+    </div>
+  </div>
+</section>
+<section class="section-space-sm">
+  <div class="container">
+    <div class="history-panel">
+      <div class="history-toolbar">
+        <div class="history-title"><span class="eyebrow">SAVED RECORDS</span><h2>Your predictions <span class="record-count" id="recordCount">—</span></h2></div>
+        <button class="btn btn-outline-danger btn-sm" type="button" id="clearHistoryButton" disabled><i class="bi bi-trash3 me-2"></i>Clear history</button>
+      </div>
+      <div class="history-filters">
+        <div class="search-wrap"><i class="bi bi-search"></i><input id="historySearch" type="search" class="form-control" placeholder="Search role or country…" aria-label="Search prediction history"></div>
+        <select id="experienceFilter" class="form-select" aria-label="Filter by experience level"><option value="">All experience levels</option><option value="Entry">Entry</option><option value="Mid">Mid</option><option value="Senior">Senior</option><option value="Executive">Executive</option></select>
+      </div>
+      <div id="historyError" class="alert alert-warning d-none" role="alert"></div>
+      <div class="table-responsive history-table-wrap">
+        <table class="table history-table align-middle mb-0">
+          <thead><tr><th>Job role</th><th>Country</th><th>Experience</th><th>Years</th><th>Technical skills</th><th>Estimated salary</th><th>Prediction date</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+          <tbody id="historyRows"><tr><td colspan="8" class="empty-state"><span class="spinner-border spinner-border-sm me-2"></span>Loading your saved predictions…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="history-empty d-none" id="historyEmpty"><span class="empty-icon"><i class="bi bi-inbox"></i></span><h3>No predictions found</h3><p>Try changing your search or create your first estimate.</p><a class="btn btn-primary-gradient" href="{{ url_for('prediction') }}">Create a prediction</a></div>
+      <div class="history-footer"><i class="bi bi-database"></i><span>Showing up to 500 most recent records. Estimates are shown in source-dataset units.</span></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/history.js') }}"></script>{% endblock %}

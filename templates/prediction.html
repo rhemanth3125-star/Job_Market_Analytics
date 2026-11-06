@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Salary prediction{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div><span class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> PERSONALIZED ESTIMATE</span><h1>Know your market value.</h1><p>Share a few details to get an estimate from the existing trained model.</p></div>
+      <div class="hero-trust"><i class="bi bi-shield-check"></i><span>Powered by the project’s<br>Random Forest pipeline</span></div>
+    </div>
+  </div>
+</section>
+<section class="section-space-sm">
+  <div class="container">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-8">
+        <form id="predictionForm" class="form-card" novalidate>
+          <div class="form-card-heading"><div><span class="eyebrow">YOUR PROFILE</span><h2>Tell us about your experience</h2><p>All fields are used as model inputs. Your history is saved to MongoDB.</p></div><span class="form-step"><i class="bi bi-person-check"></i></span></div>
+          <div class="row g-4">
+            <div class="col-md-6"><label class="form-label" for="jobRole">Job role</label><select class="form-select" id="jobRole" required><option value="">Select a job role</option>{% for role in categories.jobRoles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}</select><div class="invalid-feedback">Choose a job role from the dataset.</div></div>
+            <div class="col-md-6"><label class="form-label" for="country">Country</label><select class="form-select" id="country" required><option value="">Select a country</option>{% for country in categories.countries %}<option value="{{ country }}">{{ country }}</option>{% endfor %}</select><div class="invalid-feedback">Choose a country from the dataset.</div></div>
+            <div class="col-md-6"><label class="form-label" for="experienceLevel">Experience level</label><select class="form-select" id="experienceLevel" required><option value="">Select your level</option>{% for level in categories.experienceLevels %}<option value="{{ level.code }}">{{ level.label }} ({{ level.code }}){% if level.code == 'EX' %} · limited training data{% endif %}</option>{% endfor %}</select><div class="form-hint">Executive (EX) was not represented in training data; the model safely ignores unknown categories.</div></div>
+            <div class="col-md-6"><label class="form-label" for="yearsExperience">Years of experience</label><div class="input-group"><input class="form-control" type="number" id="yearsExperience" min="{{ categories.minYearsExperience }}" max="{{ categories.maxYearsExperience }}" step="1" placeholder="e.g. 5" required><span class="input-group-text">years</span><div class="invalid-feedback">Enter a value between {{ categories.minYearsExperience }} and {{ categories.maxYearsExperience }} years.</div></div></div>
+          </div>
+          <div class="skills-form-section">
+            <div class="skills-heading"><div><h3>Technical skills</h3><p>Select Yes for each skill you have; leave it unchecked for No.</p></div><span class="optional-pill">5 selections</span></div>
+            <div class="row g-3">
+              <div class="col-6 col-md-4"><label class="skill-toggle"><input type="checkbox" id="skillPython"><span class="skill-check"><i class="bi bi-code-slash"></i></span><span>Python</span></label></div>
+              <div class="col-6 col-md-4"><label class="skill-toggle"><input type="checkbox" id="skillSql"><span class="skill-check"><i class="bi bi-database"></i></span><span>SQL</span></label></div>
+              <div class="col-6 col-md-4"><label class="skill-toggle"><input type="checkbox" id="skillMachineLearning"><span class="skill-check"><i class="bi bi-cpu"></i></span><span>Machine learning</span></label></div>
+              <div class="col-6 col-md-4"><label class="skill-toggle"><input type="checkbox" id="skillDeepLearning"><span class="skill-check"><i class="bi bi-diagram-3"></i></span><span>Deep learning</span></label></div>
+              <div class="col-6 col-md-4"><label class="skill-toggle"><input type="checkbox" id="skillCloud"><span class="skill-check"><i class="bi bi-cloud"></i></span><span>Cloud computing</span></label></div>
+            </div>
+          </div>
+          <div class="form-actions"><span class="form-privacy"><i class="bi bi-lock"></i> Your prediction is saved to your local MongoDB history.</span><button class="btn btn-primary-gradient btn-lg" type="submit" id="predictButton"><span class="button-label"><i class="bi bi-stars me-2"></i>Predict salary</span><span class="button-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Calculating…</span></button></div>
+          <div id="predictionError" class="alert alert-danger mt-4 d-none" role="alert"></div>
+        </form>
+      </div>
+      <div class="col-lg-4">
+        <aside class="prediction-aside">
+          <div class="estimate-placeholder" id="estimatePlaceholder"><span class="placeholder-icon"><i class="bi bi-graph-up-arrow"></i></span><h3>Your estimate<br>starts here.</h3><p>Complete your profile to see a model-generated salary estimate.</p><div class="placeholder-rule"></div><div class="placeholder-note"><i class="bi bi-info-circle"></i><span>Predictions are estimates, not guaranteed offers.</span></div></div>
+          <div class="estimate-result d-none" id="estimateResult" aria-live="polite">
+            <div class="result-top"><span class="result-mark"><i class="bi bi-stars"></i></span><span class="result-tag">MODEL ESTIMATE</span></div>
+            <p class="result-caption">Estimated salary</p><div class="result-amount" id="predictedSalary">—</div><div class="result-unit">source-dataset units · annual</div>
+            <div class="result-divider"></div><h3>Your profile</h3><dl class="result-details" id="resultDetails"></dl>
+            <p class="result-disclaimer"><i class="bi bi-info-circle"></i><span id="estimateNotice">This prediction is an estimate, not a guarantee. Source currency is unspecified.</span></p>
+            <a class="result-history-link" href="{{ url_for('history') }}">View prediction history <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="model-info-card"><span><i class="bi bi-cpu"></i></span><div><b>Existing model</b><small>No retraining is performed when you request an estimate.</small></div></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>{% endblock %}

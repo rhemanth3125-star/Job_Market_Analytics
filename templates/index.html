@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Job Market Analytics and Salary Prediction{% endblock %}
+{% block content %}
+<section class="hero-section">
+  <div class="hero-grid-pattern"></div>
+  <div class="container hero-content">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> JOB MARKET ANALYTICS &amp; SALARY PREDICTION</div>
+        <h1>Make your next<br><span class="hero-highlight">career move</span> with clarity.</h1>
+        <p class="hero-copy">Explore the skills employers need, compare opportunities across markets, and get a salary estimate powered by a trained machine learning model.</p>
+        <div class="d-flex flex-wrap gap-3 hero-actions">
+          <a class="btn btn-light btn-lg hero-primary" href="{{ url_for('dashboard') }}">Explore analytics <i class="bi bi-arrow-up-right ms-2"></i></a>
+          <a class="btn btn-outline-light btn-lg hero-secondary" href="{{ url_for('prediction') }}"><i class="bi bi-stars me-2"></i>Predict salary</a>
+        </div>
+        <div class="hero-proof"><span class="proof-icon"><i class="bi bi-database-check"></i></span><span>Insights from the supplied job market dataset</span></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-visual">
+          <div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div>
+          <div class="visual-card visual-card-main">
+            <div class="visual-card-top"><span class="visual-label">MARKET SNAPSHOT</span><span class="live-indicator">DATA-LED</span></div>
+            <div class="visual-chart">
+              <span style="height:34%"></span><span style="height:48%"></span><span style="height:42%"></span><span style="height:65%"></span><span style="height:57%"></span><span style="height:82%"></span><span style="height:72%"></span><span style="height:96%"></span>
+            </div>
+            <div class="visual-card-bottom"><span>Skills shaping demand</span><i class="bi bi-arrow-up-right"></i></div>
+          </div>
+          <div class="floating-chip chip-one"><span class="chip-icon chip-blue"><i class="bi bi-cpu"></i></span><span><b>Skills insights</b><small>Know what is in demand</small></span></div>
+          <div class="floating-chip chip-two"><span class="chip-icon chip-green"><i class="bi bi-graph-up"></i></span><span><b>Salary estimate</b><small>Personalized, not promised</small></span></div>
+          <div class="hero-sparkle sparkle-one">✦</div><div class="hero-sparkle sparkle-two">✧</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom-line"><span>ANALYZE</span><i></i><span>UNDERSTAND</span><i></i><span>MOVE FORWARD</span></div>
+  </div>
+</section>
+
+<section class="section-space feature-section">
+  <div class="container">
+    <div class="section-heading text-center mx-auto">
+      <span class="eyebrow">YOUR CAREER, BETTER INFORMED</span>
+      <h2>Turn market signals into<br><span class="text-gradient">your next opportunity.</span></h2>
+      <p>One clear view of job demand, technical skills, and salary patterns—grounded in the project dataset.</p>
+    </div>
+    <div class="row g-4 mt-4">
+      <div class="col-md-4"><article class="feature-card"><div class="feature-icon icon-blue"><i class="bi bi-bar-chart-line"></i></div><h3>See the whole market</h3><p>Explore job roles, country-level opportunities, salary ranges, and how experience connects to pay.</p><a href="{{ url_for('dashboard') }}" class="feature-link">Explore dashboard <i class="bi bi-arrow-right"></i></a></article></div>
+      <div class="col-md-4"><article class="feature-card"><div class="feature-icon icon-violet"><i class="bi bi-lightning-charge"></i></div><h3>Find in-demand skills</h3><p>Compare technical skill mentions and identify the capabilities appearing across job postings.</p><a href="{{ url_for('analysis') }}" class="feature-link">View job analysis <i class="bi bi-arrow-right"></i></a></article></div>
+      <div class="col-md-4"><article class="feature-card"><div class="feature-icon icon-teal"><i class="bi bi-currency-exchange"></i></div><h3>Estimate your salary</h3><p>Use your role, location, experience, and skills with the existing trained Random Forest pipeline.</p><a href="{{ url_for('prediction') }}" class="feature-link">Try the predictor <i class="bi bi-arrow-right"></i></a></article></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section section-space">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="about-visual">
+          <div class="about-orb"></div>
+          <div class="about-stat-card"><span class="about-stat-icon"><i class="bi bi-diagram-3"></i></span><div><b>Market patterns</b><small>From the supplied dataset</small></div><i class="bi bi-arrow-up-right ms-auto"></i></div>
+          <div class="about-mini-card"><span class="mini-line line-a"></span><span class="mini-line line-b"></span><span class="mini-line line-c"></span><span class="mini-line line-d"></span></div>
+          <div class="about-caption"><i class="bi bi-shield-check me-2"></i>Existing model. No retraining.</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <span class="eyebrow">ABOUT THE PROJECT</span>
+        <h2 class="about-title">A clearer picture of<br>where work is going.</h2>
+        <p class="about-copy">TalentIQ brings the project’s data analysis and trained machine learning model together in one practical tool. Explore real dataset-derived summaries, then create an estimate using the same feature schema as the supplied model.</p>
+        <ul class="about-list">
+          <li><i class="bi bi-check-circle-fill"></i><span>Analytics generated from the provided CSV dataset</span></li>
+          <li><i class="bi bi-check-circle-fill"></i><span>Unknown experience categories handled by the model encoder</span></li>
+          <li><i class="bi bi-check-circle-fill"></i><span>Prediction history stored in your MongoDB database</span></li>
+        </ul>
+        <a class="btn btn-primary-gradient mt-3" href="{{ url_for('analysis') }}">Discover the analysis <i class="bi bi-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-panel">
+      <div><span class="eyebrow eyebrow-light">MAKE YOUR NEXT MOVE</span><h2>Better insights start here.</h2><p>Explore the data or get an estimate tailored to your profile.</p></div>
+      <div class="d-flex flex-wrap gap-3"><a class="btn btn-light" href="{{ url_for('dashboard') }}">Explore dashboard <i class="bi bi-arrow-up-right ms-2"></i></a><a class="btn btn-outline-light" href="{{ url_for('prediction') }}">Predict salary</a></div>
+      <div class="cta-decoration"><i class="bi bi-graph-up-arrow"></i></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Analytics dashboard{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div><span class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> MARKET OVERVIEW</span><h1>Analytics dashboard</h1><p>A live view of the job market dataset, from hiring demand to salary patterns.</p></div>
+      <a class="btn btn-light" href="{{ url_for('analysis') }}">Explore job analysis <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+<section class="dashboard-content section-space-sm">
+  <div class="container">
+    <div class="data-source-note"><i class="bi bi-info-circle"></i><span>Every metric below is calculated from the supplied dataset. Salary values use source-dataset units; a currency is not specified in the data.</span></div>
+    <div class="row g-3 stat-grid">
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Job postings</span><span class="stat-icon blue"><i class="bi bi-briefcase"></i></span></div><b class="stat-value" data-stat="jobPostings">—</b><small>records analyzed</small></article></div>
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Job roles</span><span class="stat-icon violet"><i class="bi bi-grid"></i></span></div><b class="stat-value" data-stat="jobRoles">—</b><small>distinct positions</small></article></div>
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Countries</span><span class="stat-icon teal"><i class="bi bi-globe2"></i></span></div><b class="stat-value" data-stat="countries">—</b><small>markets represented</small></article></div>
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Average salary</span><span class="stat-icon green"><i class="bi bi-currency-exchange"></i></span></div><b class="stat-value stat-value-long" data-stat="averageSalary">—</b><small>dataset units</small></article></div>
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Highest salary</span><span class="stat-icon orange"><i class="bi bi-arrow-up-right"></i></span></div><b class="stat-value stat-value-long" data-stat="highestSalary">—</b><small>dataset units</small></article></div>
+      <div class="col-6 col-xl-2"><article class="stat-card"><div class="stat-card-top"><span>Lowest salary</span><span class="stat-icon pink"><i class="bi bi-arrow-down-right"></i></span></div><b class="stat-value stat-value-long" data-stat="lowestSalary">—</b><small>dataset units</small></article></div>
+    </div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-7"><article class="chart-card"><div class="chart-heading"><div><h2>Top 10 job roles</h2><p>Postings by position</p></div><span class="chart-badge"><i class="bi bi-bar-chart"></i> DEMAND</span></div><div class="chart-wrap chart-tall"><canvas id="rolesChart" aria-label="Top ten job roles chart"></canvas></div></article></div>
+      <div class="col-lg-5"><article class="chart-card"><div class="chart-heading"><div><h2>Most demanded skills</h2><p>Postings reporting each skill</p></div><span class="chart-badge"><i class="bi bi-lightning"></i> SKILLS</span></div><div class="chart-wrap chart-tall"><canvas id="skillsChart" aria-label="Technical skill demand chart"></canvas></div></article></div>
+      <div class="col-lg-6"><article class="chart-card"><div class="chart-heading"><div><h2>Salary distribution</h2><p>Number of records across salary ranges</p></div><span class="chart-badge"><i class="bi bi-bar-chart-steps"></i> PAY</span></div><div class="chart-wrap"><canvas id="salaryChart" aria-label="Salary distribution chart"></canvas></div></article></div>
+      <div class="col-lg-6"><article class="chart-card"><div class="chart-heading"><div><h2>Salary by country</h2><p>Average salary in source-dataset units</p></div><span class="chart-badge"><i class="bi bi-globe"></i> LOCATION</span></div><div class="chart-wrap"><canvas id="countrySalaryChart" aria-label="Average salary by country chart"></canvas></div></article></div>
+      <div class="col-12"><article class="chart-card"><div class="chart-heading"><div><h2>Experience and salary</h2><p>Average salary for each experience level</p></div><span class="chart-badge"><i class="bi bi-graph-up"></i> EXPERIENCE</span></div><div class="chart-wrap chart-short"><canvas id="experienceChart" aria-label="Average salary by experience level chart"></canvas></div></article></div>
+    </div>
+    <div class="analytics-footnote"><i class="bi bi-info-circle"></i> Salary figures are shown in the units recorded in the source dataset. Country comparisons are not currency-converted.</div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
